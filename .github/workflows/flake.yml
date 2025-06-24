@@ -1,0 +1,27 @@
+name: flake
+
+on:
+  push:
+  workflow_call:
+    secrets:
+      ATTIC_ENDPOINT:
+        required: false
+      ATTIC_TOKEN:
+        required: false
+      ATTIC_CACHE:
+        required: false
+
+jobs:
+  nix-flake-workflow:
+    uses: jzbor/nix-flake-workflow/.github/workflows/reusable-flake-workflow.yml@main
+    with:
+      binary-cache: true
+      architectures: '[ "x86_64-linux", "aarch64-linux" ]'
+      blocklist: '[]'
+      arm-runners: true
+      disable-eval-checks: true
+      build-args: '--print-build-logs'
+    secrets:
+      ATTIC_ENDPOINT: ${{ secrets.ATTIC_ENDPOINT }}
+      ATTIC_CACHE: ${{ secrets.ATTIC_CACHE }}
+      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}

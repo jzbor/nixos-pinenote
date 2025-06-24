@@ -7,8 +7,10 @@
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs: inputs.blueprint {
+  outputs = inputs: (inputs.blueprint {
     inherit inputs;
     systems = [ "aarch64-linux" ];
+  }) // {
+    legacyPackages."aarch64-linux" = import ./kernels inputs.nixpkgs.legacyPackages."aarch64-linux";
   };
 }

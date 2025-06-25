@@ -1,6 +1,6 @@
 { pkgs, fetchFromSourcehut, ... }:
 
-pkgs.linuxPackagesFor (pkgs.linuxKernel.kernels.linux_6_15.override {
+pkgs.linuxPackagesFor ((pkgs.linuxKernel.kernels.linux_6_15.override {
   argsOverride = rec {
     src = fetchFromSourcehut {
       owner = "~hrdl";
@@ -10,6 +10,19 @@ pkgs.linuxPackagesFor (pkgs.linuxKernel.kernels.linux_6_15.override {
     };
     version = "6.15.0-rc3";
     modDirVersion = "6.15.0-rc3";
-    config = builtins.readFile "${src}/arch/arm64/configs/pinenote_defconfig";
+    defconfig = "pinenote_defconfig";
+
+    # These are required to make the build work:
+    extraConfig = ''
+      VIDEO_THP7312 n
+      CRYPTO_AEGIS128_SIMD n
+      ROCKCHIP_DW_HDMI_QP n
+    '';
+    ignoreConfigErrors = true;
   };
-})
+}).overrideAttrs (old: {
+  postInstall = ''
+    cp "$out/dtbs/rockchip/rk3566-pinenote-v1.2.dtb" "$out/dtbs/rockchip/pn.dtb"
+    ${old.postInstall}
+  '';
+}))

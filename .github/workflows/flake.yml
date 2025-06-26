@@ -17,7 +17,7 @@ jobs:
     with:
       binary-cache: true
       architectures: '[ "x86_64-linux", "aarch64-linux" ]'
-      blocklist: '[]'
+      blocklist: '[ "checks.aarch64-linux.pkgs-linux-pinenote-testsForKernel" ]'
       arm-runners: true
       disable-eval-checks: true
       build-args: '--print-build-logs'

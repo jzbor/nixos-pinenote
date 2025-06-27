@@ -5,6 +5,7 @@ with lib;
   imports = [
     ./boot.nix
     ./hardware.nix
+    ./initial.nix
   ];
 
   config = {

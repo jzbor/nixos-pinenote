@@ -23,6 +23,10 @@ in pkgs.stdenvNoCC.mkDerivation {
   nativeBuildInputs = with pkgs; [ makeWrapper ];
   buildInputs = with pkgs; [ pythonEnv hexdump ];
 
+  patchPhase = ''
+    sed -i 's/\/usr\/lib\//\/lib\//g' bin/waveform_extract.sh
+  '';
+
   installPhase = ''
     mkdir -p $out/bin
     cp bin/read_file.py $out/bin/
@@ -30,6 +34,6 @@ in pkgs.stdenvNoCC.mkDerivation {
     cp bin/waveform_extract.sh $out/bin/
 
     wrapProgram $out/bin/waveform_extract.sh \
-      --prefix PATH : ${lib.makeBinPath (with pkgs; [ hexdump ])}
+      --prefix PATH : ${lib.makeBinPath (with pkgs; [ coreutils hexdump ])}
   '';
 }

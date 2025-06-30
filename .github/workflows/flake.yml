@@ -12,8 +12,23 @@ on:
         required: false
 
 jobs:
-  nix-flake-workflow:
+  flake-stage1:
     uses: jzbor/nix-flake-workflow/.github/workflows/reusable-flake-workflow.yml@main
+    with:
+      binary-cache: true
+      architectures: '[ "x86_64-linux", "aarch64-linux" ]'
+      blocklist: '[ "checks.aarch64-linux.pkgs-linux-pinenote-testsForKernel", "packages.aarch64-linux.fs-image" ]'
+      arm-runners: true
+      disable-eval-checks: true
+      build-args: '--print-build-logs'
+    secrets:
+      ATTIC_ENDPOINT: ${{ secrets.ATTIC_ENDPOINT }}
+      ATTIC_CACHE: ${{ secrets.ATTIC_CACHE }}
+      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+
+  flake-stage2:
+    uses: jzbor/nix-flake-workflow/.github/workflows/reusable-flake-workflow.yml@main
+    needs: flake-stage1
     with:
       binary-cache: true
       architectures: '[ "x86_64-linux", "aarch64-linux" ]'

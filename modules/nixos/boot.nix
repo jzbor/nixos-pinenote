@@ -16,7 +16,7 @@ in {
       kernelPackages = flake.legacyPackages.${pkgs.system}.linuxPackages-pinenote;
 
       initrd.includeDefaultModules = false;
-      initrd.availableKernelModules = [
+      initrd.availableKernelModules = mkForce [
         "gpio-rockchip"
         "ext4"
         "mmc_block"

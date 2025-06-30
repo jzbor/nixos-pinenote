@@ -30,7 +30,7 @@ in {
 
     systemd.services.pinenote-hrdl-convert-waveform = {
       description = "Convert rockchip_ebc ebc.wbf waveform to custom_wf.bin";
-      requiredBy = [ "display-manager.service" ];
+      wantedBy = [ "display-manager.service" ];
       after = [ "pinenote-hrdl-extract-waveform.service" ];
       before = [ "display-manager.service" ];
 

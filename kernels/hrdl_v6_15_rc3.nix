@@ -9,7 +9,7 @@ pkgs.linuxPackagesFor ((pkgs.linuxKernel.kernels.linux_6_15.override {
       sha256 = "sha256-DhMiZMcwownJJRqIYOj87E/j34jJZb2/rTOhYuMumG4=";
     };
     version = "6.15.0-rc3";
-    modDirVersion = "6.15.0-rc3";
+    modDirVersion = version;
     defconfig = "pinenote_defconfig";
 
     # These are required to make the build work:
@@ -17,6 +17,7 @@ pkgs.linuxPackagesFor ((pkgs.linuxKernel.kernels.linux_6_15.override {
       VIDEO_THP7312 n
       CRYPTO_AEGIS128_SIMD n
       ROCKCHIP_DW_HDMI_QP n
+      VIRTIO_MMIO_CMDLINE_DEVICES y
     '';
     ignoreConfigErrors = true;
   };

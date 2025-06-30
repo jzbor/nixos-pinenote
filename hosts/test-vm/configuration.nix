@@ -1,4 +1,4 @@
-{ flake, ... }:
+{ flake, inputs, ... }:
 
 {
   imports = [ flake.nixosModules.default ];
@@ -6,5 +6,7 @@
 
   jzbor-pinenote.initial.enable = false;
   jzbor-pinenote.boot.enable = false;
+
+  virtualisation.vmVariant.virtualisation.host.pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
 
 }

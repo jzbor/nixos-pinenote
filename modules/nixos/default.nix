@@ -6,6 +6,7 @@ with lib;
     ./boot.nix
     ./hardware.nix
     ./initial.nix
+    ./graphical.nix
   ];
 
   config = {

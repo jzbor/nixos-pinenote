@@ -1,4 +1,4 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 with lib;
 let
@@ -13,7 +13,7 @@ in {
       loader.grub.enable = false;
       loader.generic-extlinux-compatible.enable = true;
 
-      kernelPackages = flake.legacyPackages.${pkgs.system}.linuxPackages-pinenote;
+      kernelPackages = inputs.self.legacyPackages.${pkgs.system}.linuxPackages-pinenote;
 
       initrd.includeDefaultModules = false;
       initrd.availableKernelModules = mkForce [

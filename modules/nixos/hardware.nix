@@ -1,8 +1,9 @@
-{ pkgs, lib, config, perSystem, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 with lib;
 let
   cfg = config.jzbor-pinenote.hardware;
+  flakePkgs = inputs.self.packages.${pkgs.system};
 in {
   options.jzbor-pinenote.hardware = {
     enable = mkEnableOption "Enable hardware customizations for pinenote";
@@ -53,7 +54,7 @@ in {
 
     hardware.deviceTree.name = "rockchip/pn.dtb"; # workaround: current uboot has a 127 char limit for the path
     hardware.firmware = [
-      perSystem.self.pinenote-firmware
+      flakePkgs.pinenote-firmware
       pkgs.raspberrypiWirelessFirmware
     ];
   };

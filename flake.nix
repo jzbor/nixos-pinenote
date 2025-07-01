@@ -5,12 +5,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = inputs: (inputs.blueprint {
     inherit inputs;
     systems = [ "aarch64-linux" ];
-  }) // {
-    legacyPackages."aarch64-linux" = import ./kernels inputs.nixpkgs.legacyPackages."aarch64-linux";
-  };
+  }) // (import ./misc inputs);
 }

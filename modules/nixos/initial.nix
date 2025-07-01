@@ -1,10 +1,11 @@
-{ pkgs, config, lib, perSystem, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 with lib;
 with builtins;
 let
   cfg = config.jzbor-pinenote.initial;
   firmwareDir = "/lib/firmware/rockchip";
+  flakePkgs = inputs.self.packages.${pkgs.system};
 in {
   options.jzbor-pinenote.initial = {
     enable = mkEnableOption "Enable initial settings for pinenote";
@@ -42,7 +43,7 @@ in {
         ];
         ExecStart = "/bin/sh -c '" +(concatStringsSep " && " [
           "cd /tmp"
-          "${perSystem.self.hrdl-utils}/bin/wbf_to_custom.py ${firmwareDir}/ebc.wbf"
+          "${flakePkgs.hrdl-utils}/bin/wbf_to_custom.py ${firmwareDir}/ebc.wbf"
           "mv custom_wf.bin ${firmwareDir}/custom_wf.bin"
           # "mkinitcpio -P"  -- Not sure what the NixOS equivalent would be
           "(modprobe -r rockchip_ebc; modprobe rockchip_ebc)"
@@ -57,7 +58,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecCondition = "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/ebc.wbf";
-        ExecStart = "${perSystem.self.hrdl-utils}/bin/waveform_extract.sh";
+        ExecStart = "${flakePkgs.hrdl-utils}/bin/waveform_extract.sh";
       };
     };
   };

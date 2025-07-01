@@ -17,6 +17,7 @@ pkgs.linuxPackagesFor ((pkgs.linuxKernel.kernels.linux_6_15.override {
       VIDEO_THP7312 n
       CRYPTO_AEGIS128_SIMD n
       ROCKCHIP_DW_HDMI_QP n
+      CONFIG_DRM_VIRTIO_GPU y
     '';
     ignoreConfigErrors = true;
   };

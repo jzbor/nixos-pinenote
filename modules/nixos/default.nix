@@ -10,8 +10,10 @@ with lib;
   ];
 
   config = {
-    jzbor-pinenote.boot.enable = mkDefault true;
-    jzbor-pinenote.hardware.enable = mkDefault true;
-    jzbor-pinenote.graphical.enable = mkDefault true;
+    jzbor-pinenote = {
+      boot.enable = mkDefault true;
+      hardware.enable = mkDefault true;
+      graphical.enable = mkDefault true;
+    };
   };
 }

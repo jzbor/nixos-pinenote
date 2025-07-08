@@ -7,6 +7,7 @@ inputs.nixpkgs.lib.recursiveUpdate (
     in {
       legacyPackages = {
         test-vm = pkgs.callPackage ./test-vm.nix { inherit inputs; };
+        scripts = import ../scripts/packages.nix pkgs inputs;
       };
     }
   )

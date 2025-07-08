@@ -24,41 +24,65 @@ in {
       execWheelOnly = true;
     };
 
-    # networking and ssh
+    # networking, bluetooth and ssh
     networking.networkmanager.enable = true;
     networking.hostName = "pinenote";
     services.openssh.enable = true;
-
-    systemd.services.pinenote-hrdl-convert-waveform = {
-      description = "Convert rockchip_ebc ebc.wbf waveform to custom_wf.bin";
-      wantedBy = [ "display-manager.service" ];
-      after = [ "pinenote-hrdl-extract-waveform.service" ];
-      before = [ "display-manager.service" ];
-
-      serviceConfig = {
-        Type = "oneshot";
-        ExecCondition = concatStringsSep " && " [
-          "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/custom_wf.bin"
-          "${pkgs.coreutils}/bin/test -e /usr/lib/firmware/rockchip/ebc.wbf"
-        ];
-        ExecStart = "/bin/sh -c '" +(concatStringsSep " && " [
-          "cd /tmp"
-          "${flakePkgs.hrdl-utils}/bin/wbf_to_custom.py ${firmwareDir}/ebc.wbf"
-          "mv custom_wf.bin ${firmwareDir}/custom_wf.bin"
-          # "mkinitcpio -P"  -- Not sure what the NixOS equivalent would be
-          "(modprobe -r rockchip_ebc; modprobe rockchip_ebc)"
-        ]) + "'";
-      };
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
+    services.blueman.enable = true;
 
-    systemd.services.pinenote-hrdl-extract-waveform = {
-      description = "Extract rockchip_ebc ebc.wbf waveform from waveform partition";
-      wantedBy = [ "default.target" ];
+    systemd.services = {
+      initial-home = {
+        description = "Convert rockchip_ebc ebc.wbf waveform to custom_wf.bin";
+        wantedBy = [ "display-manager.service" ];
+        after = [ "pinenote-hrdl-extract-waveform.service" ];
+        before = [ "display-manager.service" ];
 
-      serviceConfig = {
-        Type = "oneshot";
-        ExecCondition = "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/ebc.wbf";
-        ExecStart = "${flakePkgs.hrdl-utils}/bin/waveform_extract.sh";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecCondition = concatStringsSep " && " [
+            "${pkgs.coreutils}/bin/test ! -e /home/pinenote/.config"
+          ];
+          ExecStart = "/bin/sh -c '" +(concatStringsSep " && " [
+            "cp -rv ${./initial-home} /home/pinenote/.config"
+          ]) + "'";
+        };
+      };
+
+      pinenote-hrdl-convert-waveform = {
+        description = "Convert rockchip_ebc ebc.wbf waveform to custom_wf.bin";
+        wantedBy = [ "display-manager.service" ];
+        after = [ "pinenote-hrdl-extract-waveform.service" ];
+        before = [ "display-manager.service" ];
+
+        serviceConfig = {
+          Type = "oneshot";
+          ExecCondition = concatStringsSep " && " [
+            "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/custom_wf.bin"
+            "${pkgs.coreutils}/bin/test -e /usr/lib/firmware/rockchip/ebc.wbf"
+          ];
+          ExecStart = "/bin/sh -c '" +(concatStringsSep " && " [
+            "cd /tmp"
+            "${flakePkgs.hrdl-utils}/bin/wbf_to_custom.py ${firmwareDir}/ebc.wbf"
+            "mv custom_wf.bin ${firmwareDir}/custom_wf.bin"
+            # "mkinitcpio -P"  -- Not sure what the NixOS equivalent would be
+            "(modprobe -r rockchip_ebc; modprobe rockchip_ebc)"
+          ]) + "'";
+        };
+      };
+
+      pinenote-hrdl-extract-waveform = {
+        description = "Extract rockchip_ebc ebc.wbf waveform from waveform partition";
+        wantedBy = [ "default.target" ];
+
+        serviceConfig = {
+          Type = "oneshot";
+          ExecCondition = "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/ebc.wbf";
+          ExecStart = "${flakePkgs.hrdl-utils}/bin/waveform_extract.sh";
+        };
       };
     };
   };

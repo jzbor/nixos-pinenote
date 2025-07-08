@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 with lib;
 with builtins;
@@ -10,6 +10,27 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      sway
+      waybar
+      wl-clipboard
+      xmenu
+      brightnessctl
+      glib  # for gsettings
+      foot
+      wmenu
+      networkmanagerapplet
+      inputs.self.packages."${pkgs.system}".scripts
+    ];
+
+    fonts = {
+      packages = with pkgs; [
+        comic-mono
+      ];
+      fontconfig.enable = true;
+      fontconfig.defaultFonts.monospace = [ "Comic Mono" ];
+    };
+
     services.greetd = {
       enable = true;
       settings = rec {
@@ -18,5 +39,10 @@ in {
         default_session = initial_session;
       };
     };
+
+    environment.etc."greetd/environments".text = ''
+      sway
+      /bin/sh
+    '';
   };
 }

@@ -6,6 +6,9 @@
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    nix-wallpaper.url = "github:lunik1/nix-wallpaper";
+    nix-wallpaper.inputs.nixpkgs.follows = "nixpkgs";
+    nix-wallpaper.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs: (inputs.blueprint {

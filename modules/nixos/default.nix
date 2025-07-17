@@ -7,6 +7,7 @@ with lib;
     ./hardware.nix
     ./initial.nix
     ./graphical.nix
+    ./integration.nix
   ];
 
   config = {

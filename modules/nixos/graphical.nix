@@ -10,6 +10,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    jzbor-pinenote.integration.sway.enable = true;
+
     environment.systemPackages = with pkgs; [
       sway
       waybar

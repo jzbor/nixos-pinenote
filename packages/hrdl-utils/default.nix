@@ -4,6 +4,8 @@ let
   inherit (pkgs) lib;
   pythonEnv = pkgs.python3.withPackages (ps: with ps; [
     numpy
+    dbus-next
+    i3ipc
   ]);
 in pkgs.stdenvNoCC.mkDerivation {
   name = "hrdl-utils";
@@ -32,6 +34,8 @@ in pkgs.stdenvNoCC.mkDerivation {
     cp bin/read_file.py $out/bin/
     cp bin/wbf_to_custom.py $out/bin/
     cp bin/waveform_extract.sh $out/bin/
+    cp bin/rockchip_ebc_custom_ioctl.py $out/bin/
+    cp bin/sway_dbus_integration.py $out/bin/
 
     wrapProgram $out/bin/waveform_extract.sh \
       --prefix PATH : ${lib.makeBinPath (with pkgs; [ coreutils hexdump ])}

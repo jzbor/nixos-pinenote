@@ -14,9 +14,9 @@ in {
   config = {
     systemd.user.services.sway-dbus-integration = mkIf cfg.sway.enable {
       description = "sway-dbus-integration";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical.target" ];
+      wants = [ "graphical.target" ];
+      after = [ "graphical.target" ];
 
       serviceConfig = {
         Type = "simple";
@@ -29,9 +29,9 @@ in {
 
     systemd.user.services.pinenote-service-sway = mkIf cfg.sway.enable {
       description = "pinenote-service";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical.target" ];
+      wants = [ "graphical.target" ];
+      after = [ "graphical.target" ];
 
       serviceConfig = {
         Type = "simple";

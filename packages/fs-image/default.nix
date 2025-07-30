@@ -8,8 +8,6 @@ let
     inherit pkgs;
     inherit (pkgs) lib;
 
-    bootSize = "0M";
-    installBootLoader = false;
     copyChannel = false;
     memSize = 4096;
     format = "raw";

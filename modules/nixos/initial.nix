@@ -61,8 +61,8 @@ in {
         serviceConfig = {
           Type = "oneshot";
           ExecCondition = concatStringsSep " && " [
-            "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/custom_wf.bin"
-            "${pkgs.coreutils}/bin/test -e /usr/lib/firmware/rockchip/ebc.wbf"
+            "${pkgs.coreutils}/bin/test ! -e /lib/firmware/rockchip/custom_wf.bin"
+            "${pkgs.coreutils}/bin/test -e /lib/firmware/rockchip/ebc.wbf"
           ];
           ExecStart = "/bin/sh -c '" +(concatStringsSep " && " [
             "cd /tmp"
@@ -80,7 +80,7 @@ in {
 
         serviceConfig = {
           Type = "oneshot";
-          ExecCondition = "${pkgs.coreutils}/bin/test ! -e /usr/lib/firmware/rockchip/ebc.wbf";
+          ExecCondition = "${pkgs.coreutils}/bin/test ! -e /lib/firmware/rockchip/ebc.wbf";
           ExecStart = "${flakePkgs.hrdl-utils}/bin/waveform_extract.sh";
         };
       };

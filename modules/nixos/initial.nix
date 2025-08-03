@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+inputs: { pkgs, config, lib, ... }:
 
 with lib;
 with builtins;

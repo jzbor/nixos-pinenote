@@ -1,13 +1,13 @@
-{ lib, ... }:
+inputs: { lib, ... }:
 
 with lib;
 {
   imports = [
-    ./boot.nix
-    ./hardware.nix
-    ./initial.nix
-    ./graphical.nix
-    ./integration.nix
+    (import ./boot.nix inputs)
+    (import ./hardware.nix inputs)
+    (import ./initial.nix inputs)
+    (import ./graphical.nix inputs)
+    (import ./integration.nix inputs)
   ];
 
   config = {

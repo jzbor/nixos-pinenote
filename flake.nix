@@ -19,5 +19,9 @@
   outputs = inputs: (inputs.blueprint {
     inherit inputs;
     systems = [ "aarch64-linux" ];
-  }) // (import ./misc inputs);
+  })
+  // (import ./misc inputs)
+  // {
+    nixosModules.default = import ./modules/nixos inputs;
+  };
 }

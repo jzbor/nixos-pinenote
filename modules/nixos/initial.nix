@@ -21,6 +21,13 @@ in {
       squeekboard
     ];
 
+    # Nix settings
+    nix.settings = {
+      max-substitution-jobs = 128;
+      http-connections = 128;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+
     # user
     users.users.pinenote = {
       isNormalUser = true;

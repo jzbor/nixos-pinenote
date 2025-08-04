@@ -12,6 +12,14 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # basic packages
+    environment.systemPackages = with pkgs; [
+      git
+      htop
+      neofetch
+      neovim
+      squeekboard
+    ];
 
     # user
     users.users.pinenote = {

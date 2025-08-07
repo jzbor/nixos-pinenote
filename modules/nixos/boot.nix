@@ -19,7 +19,6 @@ in {
       initrd.availableKernelModules = mkForce [
         "gpio-rockchip"
         "ext4"
-        "f2fs"
         "mmc_block"
         "usbhid"
         "hid_generic"

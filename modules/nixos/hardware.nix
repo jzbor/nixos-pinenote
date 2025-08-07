@@ -49,7 +49,7 @@ in {
     # file system setup
     fileSystems."/" = {
       label = "nixos";
-      fsType = "f2fs";
+      fsType = "ext4";
     };
 
     hardware.deviceTree.name = "rockchip/pn.dtb"; # workaround: current uboot has a 127 char limit for the path

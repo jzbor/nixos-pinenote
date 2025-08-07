@@ -19,6 +19,7 @@ in {
       neofetch
       neovim
       squeekboard
+      xournalpp
     ];
 
     # Nix settings

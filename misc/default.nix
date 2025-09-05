@@ -13,9 +13,9 @@ inputs.nixpkgs.lib.recursiveUpdate (
   )
 ) (
   let
-    pkgs = inputs.nixpkgs.legacyPackages.aarch64-linux;
+    kernelPkgs = inputs.nixpkgs-kernel.legacyPackages.aarch64-linux;
   in {
-    legacyPackages.aarch64-linux = import ./kernels pkgs;
+    legacyPackages.aarch64-linux = import ./kernels kernelPkgs;
   }
 )
 

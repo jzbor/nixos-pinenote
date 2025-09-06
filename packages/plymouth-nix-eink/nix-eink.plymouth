@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=nix-eink
+Description=This is a plymouth theme for eink devices running Nix
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/nix-eink
+ScriptFile=/usr/share/plymouth/themes/nix-eink/nix-eink.script

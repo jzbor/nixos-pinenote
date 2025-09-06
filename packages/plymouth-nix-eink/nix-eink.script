@@ -1,0 +1,41 @@
+image_starting = Image("starting.png");
+image_off = Image("off.png");
+image_poweroff = Image("poweroff.png");
+
+pos_x = Window.GetWidth()/2 - image.GetWidth()/2;
+pos_y = Window.GetHeight()/2 - image.GetHeight()/2;
+
+sprite = Sprite(image_starting);
+sprite.SetX(pos_x);
+sprite.SetY(pos_y);
+sprite.SetZ(15);
+sprite.SetOpacity(1);
+
+fun on_refresh() {
+  if (Plymouth.GetMode() == "boot") {
+    sprite = Sprite(image_starting);
+    sprite.SetX(pos_x);
+    sprite.SetY(pos_y);
+    sprite.SetZ(15);
+    sprite.SetOpacity(1);
+  }
+  if (Plymouth.GetMode() == "poweroff") {
+    sprite = Sprite(image_starting);
+    sprite.SetX(pos_x);
+    sprite.SetY(pos_y);
+    sprite.SetZ(15);
+    sprite.SetOpacity(1);
+  }
+}
+
+fun on_quit() {
+  sprite = Sprite(image_off);
+  sprite.SetX(pos_x);
+  sprite.SetY(pos_y);
+  sprite.SetZ(15);
+  sprite.SetOpacity(1);
+}
+
+Plymouth.SetRefreshFunction(on_refresh);
+Plymouth.SetQuitFunction(on_quit);
+Plymouth.SetRefreshRate(1);

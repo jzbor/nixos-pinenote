@@ -2,7 +2,7 @@
 
 inputs.nix-wallpaper.packages."${pkgs.system}".default.override {
   backgroundColor = "#ffffff";
-  width = 1404;
+  width = 1872;
   height = 1872;
   logoSize = 30.0;
   logoColors = rec {

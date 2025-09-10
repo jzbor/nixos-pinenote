@@ -40,6 +40,7 @@ in pkgs.stdenvNoCC.mkDerivation {
 
   patchPhase = ''
     sed -i 's/\/usr\/lib\//\/lib\//g' bin/waveform_extract.sh
+    sed -i '1s/.*/#!\/usr\/bin\/python3/' bin/cyttsp5_update_config.py
   '';
 
   installPhase = ''

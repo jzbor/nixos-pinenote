@@ -18,4 +18,8 @@ pkgs.rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~phantomas/pinenote-service/tree";
     licence = licenses.gpl3only;
   };
+
+  postInstall = ''
+    cp scripts/sway/ebcmark.sh $out/bin/sway-ebcmark
+  '';
 }

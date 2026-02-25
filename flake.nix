@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-kernel.url = "github:NixOS/nixpkgs/4206c4cb56751df534751b058295ea61357bbbaa";
+    nixpkgs-kernel.url = "github:NixOS/nixpkgs/2fc6539b481e1d2569f25f8799236694180c0993";
 
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";

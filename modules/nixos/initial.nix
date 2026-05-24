@@ -14,9 +14,9 @@ in {
   config = mkIf cfg.enable {
     # basic packages
     environment.systemPackages = with pkgs; [
+      fastfetch
       git
       htop
-      neofetch
       neovim
       squeekboard
       xournalpp

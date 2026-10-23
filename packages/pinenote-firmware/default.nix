@@ -18,7 +18,7 @@ pkgs.stdenvNoCC.mkDerivation rec {
       sha256 = "sha256-9QNiIHt1NlIcrapZvcKUqa2UaxSfu24zLsKiRcHzT78=";
     })
     (pkgs.fetchurl {
-      url = "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/main/LICENCE.cypress";
+      url = "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/main/LICENSES/LICENCE.cypress";
       sha256 = "sha256-rg22zE2zOUEUjfD2feU+dqd7G1pGsxZe23BAqidQAV8=";
     })
   ];
